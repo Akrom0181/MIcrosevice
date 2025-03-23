@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+option go_package = "genproto/user_service";
+
+package user_service;
+
+service UserService {
+    rpc Create(User) returns (User) {}
+    rpc GetSingle(UserSingleRequest) returns (User) {}
+    rpc GetList(GetListUserRequest) returns (GetListUserResponse) {}
+    rpc Update(User) returns (User) {}
+    rpc Delete(UserPrimaryKey) returns (google.protobuf.Empty) {}
+}
+
+message User {
+    string id = 1;
+    string user_type = 2;
+    string user_role = 3;
+    string full_name = 4;
+    string user_name = 5;
+    string email = 6;
+    string password = 7;
+    string gender = 8;
+    string status = 9;
+    string access_token = 10;
+    string created_at = 11;
+    string updated_at = 12;
+}
+
+// message UserEmpty {}
+
+message UserPrimaryKey {
+    string id = 1;
+}
+
+message UserSingleRequest {
+    string id = 1;
+    string username = 2;
+    string email = 3;
+}
+
+message GetListUserRequest {
+    uint64 page = 1;
+    uint64 limit = 2;
+    string search = 3;
+}
+
+message GetListUserResponse {
+    int64 count = 1;
+    repeated User users = 2;
+}

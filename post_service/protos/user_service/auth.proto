@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+option go_package = "genproto/user_service";
+
+package user_service;
+
+service AuthService {
+  rpc Register(RegisterRequest) returns (RegisterResponse);
+  rpc VerifyEmail(VerifyEmailRequest) returns (VerifyEmailResponse);
+  rpc Login(LoginRequest) returns (LoginResponse);
+}
+
+message LoginRequest {
+  string username = 1;
+  string password = 2;
+  string email = 3;
+}
+
+message LoginResponse {
+  string access_token = 1;
+}
+
+message RegisterRequest {
+  string username = 1;
+  string email = 2;
+  string password = 3;
+}
+  
+message RegisterResponse {
+  string access_token = 1;
+}
+
+message VerifyEmailRequest {
+  string email = 1;
+  string otp = 2;
+}
+
+message VerifyEmailResponse {
+  string message = 2;
+}
+

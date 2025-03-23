@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+option go_package = "genproto/post_service";
+
+import "google/protobuf/empty.proto";
+
+package post_service;
+
+
+service PostService {
+  rpc Create(Post) returns (Post) {}
+  rpc GetSingle(PostSingleRequest) returns (Post) {}
+  rpc GetList(GetListPostRequest) returns (PostList) {}
+  rpc Update(Post) returns (Post) {}
+  rpc Delete(PostSingleRequest) returns (google.protobuf.Empty) {}
+}
+
+service PostAttachmentService {
+  rpc Create(Attachment) returns (Attachment) {}
+  rpc MultipleUpsert(AttachmentMultipleInsertRequest) returns (AttachmentList) {}
+  rpc GetSingle(AttachmentSingleRequest) returns (Attachment) {}
+  rpc GetList(GetListAttachmentRequest) returns (AttachmentList) {}
+  rpc Update(Attachment) returns (Attachment) {}
+  rpc Delete(AttachmentSingleRequest) returns (google.protobuf.Empty) {}
+  rpc GetDefaultTags(GetDefaultTagsRequest) returns (GetDefaultTagsResponse) {}
+}
+
+message Attachment {
+  string id = 1;
+  string post_id = 2;
+  string filepath = 3;
+  string content_type = 4;
+  string created_at = 5;
+  string updated_at = 6;
+}
+
+message AttachmentSingleRequest {
+  string id = 1;
+}
+
+message GetListAttachmentRequest {
+  uint64 page = 1;
+  uint64 limit = 2;
+  string search = 3;
+}
+
+message AttachmentList {
+  repeated Attachment items = 1;
+  int64 count = 2;
+}
+
+message GetDefaultTagsRequest {}
+
+message GetDefaultTagsResponse {
+  repeated string tags = 1;
+}
+
+message AttachmentMultipleInsertRequest {
+  string post_id = 1;
+  repeated Attachment attachments = 2;
+}
+
+message Post {
+  string id = 1;
+  string owner_id = 2;
+  string content = 3;
+  map<string, Tag> tags = 4;
+  repeated Attachment attachments = 5;
+  string status = 6;
+  string created_at = 7;
+  string updated_at = 8;
+}
+
+message Tag {
+  repeated string tags = 1;
+}
+
+message PostSingleRequest {
+  string id = 1;
+}
+
+message PostList {
+  repeated Post items = 1;
+  int64 count = 2;
+}
+
+message GetListPostRequest {
+  uint64 page = 1;
+  uint64 limit = 2;
+  string search = 3;
+}
+
