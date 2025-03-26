@@ -67,69 +67,6 @@ func New(c *HandlerConfig) *handler {
 	}
 }
 
-// func handleGrpcErrWithDescription(c *gin.Context, l logger.Logger, err error, message string) bool {
-// 	st, ok := status.FromError(err)
-// 	if !ok || st.Code() == codes.Internal {
-// 		c.JSON(http.StatusInternalServerError, models.ErrorWithDescription{
-// 			Code:        http.StatusBadRequest,
-// 			Description: st.Message(),
-// 		})
-// 		l.Error(message, logger.Error(err))
-// 		return true
-// 	}
-// 	if st.Code() == codes.NotFound {
-// 		c.JSON(http.StatusNotFound, models.ErrorWithDescription{
-// 			Code:        http.StatusNotFound,
-// 			Description: st.Message(),
-// 		})
-// 		l.Error(message+", not found", logger.Error(err))
-// 		return true
-// 	} else if st.Code() == codes.Unavailable {
-// 		c.JSON(http.StatusInternalServerError, models.ErrorWithDescription{
-// 			Code:        http.StatusInternalServerError,
-// 			Description: "Internal Server Error",
-// 		})
-// 		l.Error(message+", service unavailable", logger.Error(err))
-// 		return true
-// 	} else if st.Code() == codes.AlreadyExists {
-// 		c.JSON(http.StatusInternalServerError, models.ErrorWithDescription{
-// 			Code:        http.StatusInternalServerError,
-// 			Description: st.Message(),
-// 		})
-// 		l.Error(message+", already exists", logger.Error(err))
-// 		return true
-// 	} else if st.Code() == codes.InvalidArgument {
-// 		c.JSON(http.StatusBadRequest, models.ErrorWithDescription{
-// 			Code:        http.StatusBadRequest,
-// 			Description: st.Message(),
-// 		})
-// 		l.Error(message+", invalid field", logger.Error(err))
-// 		return true
-// 	} else if st.Code() == codes.Code(20) {
-// 		c.JSON(http.StatusBadRequest, models.ErrorWithDescription{
-// 			Code:        http.StatusBadRequest,
-// 			Description: st.Message(),
-// 		})
-// 		l.Error(message+", invalid field", logger.Error(err))
-// 		return true
-// 	} else if st.Err() != nil {
-// 		c.JSON(http.StatusBadRequest, models.ErrorWithDescription{
-// 			Code:        http.StatusBadRequest,
-// 			Description: st.Message(),
-// 		})
-// 		l.Error(message+", invalid field", logger.Error(err))
-// 		return true
-// 	} else if st.Code() == codes.Unauthenticated {
-// 		c.JSON(http.StatusUnauthorized, models.ErrorWithDescription{
-// 			Code:        http.StatusUnauthorized,
-// 			Description: st.Message(),
-// 		})
-// 		l.Error(message+", unauthorized", logger.Error(err))
-// 		return true
-// 	}
-// 	return false
-// }
-
 func ParsePageQueryParam(c *gin.Context) (uint64, error) {
 	pageStr := c.Query("page")
 	if pageStr == "" {

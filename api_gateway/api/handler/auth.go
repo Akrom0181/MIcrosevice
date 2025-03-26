@@ -3,6 +3,7 @@ package handler
 import (
 	"fmt"
 	"net/http"
+	"os"
 	"time"
 
 	"user_api_gateway/config"
@@ -152,7 +153,8 @@ func (h *handler) Register(ctx *gin.Context) {
 		Username: body.Username,
 		Email:    body.Email,
 	})
-	if err != nil {
+
+	if err == nil {
 		h.ReturnError(ctx, config.ErrorConflict, "User already exists", 409)
 		return
 	}
@@ -203,7 +205,7 @@ func (h *handler) Register(ctx *gin.Context) {
 		return
 	}
 
-	err = etc.SendMail(user.Email, emailBody)
+	err = etc.SendEmail(os.Getenv("GMAIL_HOST"), os.Getenv("GMAIL_PORT"), os.Getenv("GMAIL_USER"), os.Getenv("GMAIL_PASSWORD"), user.Email, emailBody)
 	if err != nil {
 		h.ReturnError(ctx, config.ErrorInternalServer, "Error ssending OTP", 500)
 		return

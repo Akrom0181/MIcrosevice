@@ -17,10 +17,6 @@ var (
 	ErrorConflict       = "CONFLICT"
 	ErrorBadRequest     = "BAD_REQUEST"
 	ErrorDuplicateKey   = "DUPLICATE_KEY"
-	SmtpServer          = "smtp.gmail.com"
-	SmtpPort            = "587"
-	SmtpUsername        = "akromjonotaboyev@gmail.com"
-	SmtpPassword        = "ongb hiqj ehhb gkox"
 )
 
 var (
